@@ -1,0 +1,9 @@
+sudo docker build -f mongo.dockerfile -t jy/mongo:0.1 .
+sudo docker build -f cataloguedb.dockerfile -t jy/cataloguedb:0.1 .
+sudo docker build -f frontend.dockerfile -t jy/frontend:0.1 .
+sudo docker build -f shipping.dockerfile -t jy/shipping:0.1 .
+sudo docker build -f user.dockerfile -t jy/user:0.1 .
+sudo docker build -f order.dockerfile -t jy/order:0.1 .
+sudo docker build -f cart.dockerfile -t jy/cart:0.1 .
+sudo docker build -f payment.dockerfile -t jy/payment:0.1 .
+sudo docker build -f catalogue.dockerfile -t jy/catalogue:0.1 .

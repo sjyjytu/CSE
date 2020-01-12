@@ -1,0 +1,48 @@
+
+# 负载均衡动态服务器组
+upstream dynamic_server {
+	server localhost:8080;
+	server localhost:8081;
+	server localhost:8082;
+}
+
+server {
+	listen 8090;
+
+	
+	root /home/ubuntu/cse/handson3/frontend/public;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name ktyweavesock;
+
+	# 正则匹配到则为静态请求
+	location ^~ /css/ {
+
+	}
+
+	location ^~ /fonts/ {
+
+	}
+
+	location ^~ /img/ {
+
+	}
+
+	location ^~ /items/ {
+
+	}
+
+	location ^~ /js/ {
+
+	}
+
+	location ~ \.(html|png)$ {
+		
+	}
+
+	# 默认为动态请求，转发给8080
+	location / {
+		proxy_pass http://dynamic_server;
+	}
+}

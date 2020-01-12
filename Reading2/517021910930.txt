@@ -1,0 +1,15 @@
+1. What problem does this paper want to solve?
+这篇论文主要是想解决consistency和performance的trade-off，既保证consistency又尽量提升performance。
+
+2. What is Asynchronous Durability Notification? Why is it useful for implementing optimistic crash consistency?
+异步持久性通知，就是low-level磁盘真正持久化之后，发通知告诉high-level的磁盘。
+因为在实际中，如果不发生crash，磁盘的真正持久化顺序是不重要的，没有必要真的去保证，这样可以大大提升性能，
+但是也要考虑发生crash的情况，因此通过Asynchronous Durability Notification，来保证那些有顺序依赖关系的磁盘操作，
+在发生crash时，如果前面的人crash了，后面的人一定crash。
+
+3. Why does this paper propose two sync-related calls (osync and dsync)? Please give some examples where osync or dsync is suitable, respectively.
+这是durability和consistency的，osync可以保证consistency，即写入顺序一致，同时提高性能，却无法保证durability，而dsync就是
+为某些需要保证durability的应用服务的。
+比如：
+osync：写一个文件，先写了一些内容，再写了一些内容，就必须保证consistency，不能后写的内容写进去了，先写的内容却没写进去。
+dsync：订票，一旦票卖完了，卖完这个状态就必须持久化到磁盘，否则其他人还能买。
